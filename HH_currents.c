@@ -38,10 +38,10 @@ int main() {
     double dv = (-gBarNa * pow(m,3) * h * (v - eNa) - gBarK * pow(n,4) * (v - eK) - gM * (v - vRest) + iInj);
 
     // Euler integration updates
-    double n = n + dn * step;
-    double m = m + dm * step;
-    double h = h + dh * step;
-    double v = v + dv * step;
+    double n += dn * step;
+    double m += dm * step;
+    double h += dh * step;
+    double v += dv * step;
 
     printf("n: %f\t m: %f\t h: %f\t v: %f\n", n, m, h, v);
   }
