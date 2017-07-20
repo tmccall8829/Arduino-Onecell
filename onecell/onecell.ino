@@ -1,3 +1,6 @@
+/* Written by Tom McCall 
+    July 18th 2017    */
+
 #include <stdio.h>
 #include <math.h>
 
@@ -19,13 +22,7 @@ float h = 0.5961;
 int threshold = 20;
 int pin = 13;
 
-void setup() {
-  // put your setup code here, to run once
-  pinMode(pin, OUTPUT);
-  Serial.begin(9600);
-}
-
-void loop() {
+void ap() {
   // Potassium current
   float alphan = 0.01 * (v + 55.) / (1 - exp(-(v + 55.) / 10.));
   float betan = 0.125 * exp(-(v + 65) / 80);
@@ -48,10 +45,29 @@ void loop() {
   h += (dh * tstep);
   v += (dv * tstep);
 
-  if (v >= threshold) {
+  /*if (v >= threshold) {
     digitalWrite(pin, HIGH);
     //exit(0); // Uncomment to exit after one spike
   } else {
     digitalWrite(pin, LOW);
-  }
+  } */
+
+  // analogWrite() only uses values 0-255, so
+  // we need to map the min and max voltages to
+  // 0 and 255, respectively
+  float val = map(v, -75.00, 40, 0, 255);
+
+  // Then write val to the output LED pin
+  analogWrite(pin, val);
 }
+
+void setup() {
+  // put your setup code here, to run once
+  pinMode(pin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  ap();
+}
+

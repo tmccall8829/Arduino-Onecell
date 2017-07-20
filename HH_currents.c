@@ -2,7 +2,7 @@
 #include <math.h>
 
 int main() {
-  float iInj = 2.5; // Injected current
+  float iInj = 20; // Injected current
   float step = 0.01; // time step
   float nSteps = 2000; // length of simulation (in ms)
 
@@ -21,7 +21,7 @@ int main() {
 
   float i = 0;
   // Calculations
-  for (i = 0; i < nSteps; i += step) {
+  for (i = 0; i < nSteps; i += 1) {
     double alphan = 0.01 * (v + 55.) / (1 - exp(-(v + 55.) / 10.));
     double betan = 0.125 * exp(-(v + 65) / 80);
 
@@ -38,11 +38,11 @@ int main() {
     double dv = (-gBarNa * pow(m,3) * h * (v - eNa) - gBarK * pow(n,4) * (v - eK) - gM * (v - vRest) + iInj);
 
     // Euler integration updates
-    double n += dn * step;
-    double m += dm * step;
-    double h += dh * step;
-    double v += dv * step;
+    n += dn * step;
+    m += dm * step;
+    h += dh * step;
+    v += dv * step;
 
-    printf("n: %f\t m: %f\t h: %f\t v: %f\n", n, m, h, v);
+    printf("v: %f\n", v);
   }
 }
